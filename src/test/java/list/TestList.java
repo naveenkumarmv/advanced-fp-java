@@ -1,12 +1,17 @@
+package list;
+
 import patternmatching.list.LinkedList;
 import patternmatching.list.List;
 import patternmatching.list.None;
 import org.testng.annotations.Test;
 
+import static list.TestHelper.testList;
 import static org.testng.Assert.assertEquals;
 import static patternmatching.list.ListFunctions.*;
 
-public class TestListFunctions {
+public class TestList {
+
+
     @Test
     public void testMap(){
         List<Integer> list = testList();
@@ -16,20 +21,16 @@ public class TestListFunctions {
 
     }
 
-    private static LinkedList<Integer> testList() {
-        return new LinkedList<>(1, new LinkedList<>(2, new LinkedList<Integer>(3, new None<>())));
-    }
-
     @Test
     public void testFold(){
         List<Integer> list = testList();
-        assertEquals(fold(list,0, (x, y) -> x + y), 6);
+        assertEquals(list.fold(0, (x, y) -> x + y), 6);
     }
 
     @Test
     public void testFlatMap(){
         List<Integer> list = testList();
-        List<Integer> lists = flatmap(list, TestListFunctions::twoList);
+        List<Integer> lists = list.flatmap(TestList::twoList);
         assertEquals(size(lists), 6);
     }
 

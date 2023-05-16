@@ -1,28 +1,29 @@
 package patternmatching.list;
 
-import patternmatching.list.LinkedList;
-import patternmatching.list.List;
-import patternmatching.list.None;
 
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import static patternmatching.list.Result.*;
 
 public class ListFunctions {
 
     public static <E> int size(List<E> list){
-        return list.match(() -> 0, (head, tail) -> 1 + size(tail));
+        return list.match(0, (head, tail) -> 1 + size(tail));
     }
 
-    public static <E, R> R fold(List<E> list, R zero, BiFunction<R, E, R> reducer){
-        return list.match(() -> zero, (head, tail) ->  reducer.apply(fold(tail, zero, reducer), head));
+    public static <E> boolean areEqual(List<E> first, List<E> second){
+        return first.match(
+                second.match(true, (h, t) -> false),
+                (E head, List<E> tail) -> second.match(false, (h, t) -> h.equals(head) && areEqual(tail, t))
+        );
     }
 
-    public static <E> List<E> concatenate(List<E> first, List<E> second){
-        return first.match(() -> second, (head, tail) -> new LinkedList<E>(head, concatenate(tail, second)));
+    public static boolean isSorted(List<Integer> list){
+        return check(list).match(false, true, t -> true);
     }
-    public static <E, R> List<R> flatmap(List<E> list, Function<E, List<R>> function){
-        List<List<R>> lists = list.map(function);
-        return fold(lists, new None<R>(), (List<R> f, List<R> s) -> concatenate(f, s));
+    public static Result<Integer> check(List<Integer> list){
+        return list.match(
+                yes(),
+                (head, tail) -> check(tail).match(no(), top(head), top -> top <= head ? top(head): no())
+        );
     }
 
 
