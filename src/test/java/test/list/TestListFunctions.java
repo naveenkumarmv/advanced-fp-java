@@ -1,11 +1,12 @@
-package list;
+package test.list;
 
 import org.testng.annotations.Test;
 import patternmatching.list.List;
+import patternmatching.list.ListFunctions;
 
-import static list.TestHelper.testList;
 import static org.testng.Assert.assertEquals;
 import static patternmatching.list.ListFunctions.*;
+import static test.TestHelper.testList;
 
 public class TestListFunctions {
 
@@ -14,10 +15,11 @@ public class TestListFunctions {
         List<Integer> list = testList();
         assertEquals(size(list), 3);
     }
-    @Test
-    public void testEqual(){
-        assertEquals(areEqual(testList(), testList()), true);
-    }
 
+    @Test
+    public void testCreation(){
+        List<Integer> list = ListFunctions.list(1, 2, 3);
+        assertEquals(size(list), 3);
+    }
 
 }

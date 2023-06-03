@@ -1,3 +1,5 @@
+package test;
+
 import patternmatching.example.Employee1;
 
 public class TestEmployee {

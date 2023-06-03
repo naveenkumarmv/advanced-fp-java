@@ -1,3 +1,5 @@
+package test;
+
 import patternmatching.example.Fibonacci;
 import org.testng.annotations.Test;
 
