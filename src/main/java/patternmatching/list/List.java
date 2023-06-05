@@ -2,7 +2,6 @@ package patternmatching.list;
 
 import algebra.Monoid;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.function.*;
 
@@ -15,7 +14,7 @@ public sealed interface List<E> extends Iterable<E> permits None, LinkedList {
         };
     }
 
-    default <F> List<F>map(Function<E, F> function){
+    default <F> List<F> map(Function<E, F> function){
         return match(new None<>(), (head, tail) -> new LinkedList<>(function.apply(head), tail.map(function)));
     }
 

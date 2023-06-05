@@ -5,6 +5,8 @@ import patternmatching.list.List;
 import patternmatching.list.None;
 import org.testng.annotations.Test;
 
+import java.util.function.Function;
+
 import static org.testng.Assert.assertEquals;
 import static patternmatching.list.ListFunctions.*;
 import static test.TestHelper.getAdditionIntegerMonoid;
@@ -21,6 +23,13 @@ public class TestList {
 
     }
 
+    @Test
+    public void testMap1(){
+        List<String> list = list("hello", "world");
+        List<Integer>res = list.map(String::length);
+        for(Integer i : res)
+            System.out.println(i);
+    }
     @Test
     public void testFold(){
         List<Integer> list = testList();

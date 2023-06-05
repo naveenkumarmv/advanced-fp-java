@@ -36,6 +36,19 @@ public class TestFunctor {
         String s1 = s.substring(0, i);
         String s2 = s.substring(i, length);
         List<String> list = ListFunctions.list(s1, s2);
-        assertEquals(s.length(), list.map(String::length).fold(TestHelper.getAdditionIntegerMonoid()));
+        int size = list.fold(
+                new Monoid<String>() {
+                    @Override
+                    public String identity() {
+                        return "";
+                    }
+
+                    @Override
+                    public BinaryOperator<String> operator() {
+                        return (x, y) -> x + y;
+                    }
+                }
+        ).length();
+        assertEquals(size, list.map(String::length).fold(TestHelper.getAdditionIntegerMonoid()));
     }
 }
