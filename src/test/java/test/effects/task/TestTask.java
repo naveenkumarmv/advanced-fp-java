@@ -1,4 +1,4 @@
-package test;
+package test.effects.task;
 
 import org.testng.annotations.Test;
 import patternmatching.effects.task.DelayedTask;
